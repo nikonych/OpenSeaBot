@@ -14,6 +14,7 @@ import time
 from bs4 import BeautifulSoup
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 
 from data.config import BOT_TOKEN, chat_id
 from data.dbhandler import get_user, add_user
@@ -24,7 +25,7 @@ async def parsing():
     option = Options()
     option.add_argument("--disable-infobars")
     option.add_argument("--disable-infobars")
-    browser = webdriver.Chrome('chromedriver', chrome_options=option)
+    browser = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=option)
     browser.maximize_window()
     browser.get('https://opensea.io/activity?search[eventTypes][0]=AUCTION_CREATED')
     elem = WebDriverWait(browser, 30).until(
