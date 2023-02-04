@@ -27,6 +27,9 @@ async def parsing():
     browser = webdriver.Chrome('chromedriver', chrome_options=option)
     browser.maximize_window()
     browser.get('https://opensea.io/activity?search[eventTypes][0]=AUCTION_CREATED')
+    elem = WebDriverWait(browser, 30).until(
+        EC.presence_of_element_located((By.TAG_NAME, "main"))  # This is a dummy element
+    )
     soup = BeautifulSoup(browser.page_source, "html.parser")
     elements = soup.find_all("div", attrs={"role" : "listitem"})
     for element in elements:
